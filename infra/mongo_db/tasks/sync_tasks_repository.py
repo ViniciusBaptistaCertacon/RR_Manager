@@ -2,7 +2,6 @@ import time
 from pymongo import UpdateOne, InsertOne
 from datetime import datetime
 import logging
-import requests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -22,8 +21,6 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
     Returns:
         dict: Resultado da operação bulk_write na coleção de tarefas.
     """
-    start_time = time.perf_counter()
-
     if not isinstance(json_tasks, list):
         raise ValueError("json_tasks deve ser uma lista de dicionários.")
 
@@ -48,7 +45,6 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
 
         if task_id in db_tasks_by_id:
             existing_status = db_tasks_by_id[task_id].get("status")
-            # Registra a reabertura se a tarefa estava fechada e agora vem com status diferente
             if existing_status == "*FINALIZADAS" and novo_status != "*FINALIZADAS":
                 reopened_docs.append({
                     "task_id": task_id,
@@ -71,6 +67,4 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
         reopened_collection.insert_many(reopened_docs)
         logger.info("Registradas %d reaberturas", len(reopened_docs))
 
-    end_time = time.perf_counter()
-    print(f"Tempo total de sync_tasks: {end_time - start_time:.4f} segundos")
     return result.bulk_api_result if result else None

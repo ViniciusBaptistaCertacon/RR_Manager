@@ -1,8 +1,6 @@
 import requests
 import time
-import streamlit as st
 
-#DevOps - ADM - Token - Vinícius
 HEADERS = {
     "App-Key": "1a219437eab893dc115509bb85e06d77",
     "User-Token": "9flMUzLxQtxohKGZjU5",
@@ -45,7 +43,6 @@ def fetch_paginated_tasks(is_closed):
                 time.sleep(1)
 
         if attempt > retries:
-            st.warning(f"Falha ao buscar página {page} com is_closed={is_closed} após {retries+1} tentativas.")
             break
 
     return all_tasks

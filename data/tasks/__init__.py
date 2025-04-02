@@ -1,1 +1,2 @@
 from .get_all_tasks_service import get_all_tasks
+from .sync_all_tasks_service import sync_all_tasks
