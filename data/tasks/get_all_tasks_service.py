@@ -2,8 +2,8 @@ import requests
 import time
 
 HEADERS = {
-    "App-Key": "1a219437eab893dc115509bb85e06d77",
-    "User-Token": "9flMUzLxQtxohKGZjU5",
+    "App-Key": "e6b40d7a3927bb80628058a68f48ba58",
+    "User-Token": "GKWFVyvw5VdC8rJwuTAR",
     "Content-Type": "application/json"
 }
 
@@ -18,10 +18,7 @@ def fetch_paginated_tasks(is_closed):
         params = {
             "is_closed": str(is_closed).lower(),
             "limit": limit,
-            "page": page,
-            "sort": "closed_date" if is_closed else "queue_position",
-            "sort_dir": "desc" if is_closed else "asc",
-            "bypass_status_default": "true"
+            "page": page
         }
 
         attempt = 0

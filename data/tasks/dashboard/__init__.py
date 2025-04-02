@@ -1,5 +1,3 @@
 from .get_task_counts_service import get_task_counts
-from .get_monthly_lead_time_service import get_monthly_lead_time
-from .get_average_deviations_service import get_average_deviations
-from .get_project_distribution_service import get_project_distribution
-from .get_tasks_by_professional_service import get_tasks_by_professional
+from .get_real_lead_time_service import get_real_lead_time
+from .get_estimated_lead_time_service import get_estimated_lead_time

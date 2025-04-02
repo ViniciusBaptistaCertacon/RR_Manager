@@ -33,7 +33,9 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
     bulk_ops = []
     reopened_docs = []
 
+
     for task_id, task in tasks_by_id.items():
+
         novo_status = task.get("board_stage_name")
         update_fields = {
             "title": task.get("title"),
@@ -42,9 +44,11 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
             "status": novo_status,
             "completion_date": task.get("close_date"),
             "custom_fields": task.get("custom_fields"),
-            "assignments": task.get("assignments")
+            "assignments": task.get("assignments"),
+            "desired_start_date": task.get("desired_start_date"),
+            "desired_date": task.get("desired_date"),
+            "desired_date_with_time": task.get("desired_date_with_time")
         }
-
         if task_id in db_tasks_by_id:
             existing_status = db_tasks_by_id[task_id].get("status")
             if existing_status == "*FINALIZADAS" and novo_status != "*FINALIZADAS":

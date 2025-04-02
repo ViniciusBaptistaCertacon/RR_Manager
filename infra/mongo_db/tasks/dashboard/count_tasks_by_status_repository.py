@@ -21,9 +21,9 @@ def count_tasks_by_status(tasks_collection, start_date=None, end_date=None, crea
     if start_date or end_date:
         query["created_at"] = {}
         if start_date:
-            query["created_at"]["$gte"] = start_date
+            query["created_at"]["$gte"] = start_date.isoformat()
         if end_date:
-            query["created_at"]["$lte"] = end_date
+            query["created_at"]["$lte"] = end_date.isoformat()
     if creator:
         query["user_name"] = creator
 
