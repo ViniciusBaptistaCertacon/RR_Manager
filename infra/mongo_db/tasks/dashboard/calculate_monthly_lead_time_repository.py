@@ -39,7 +39,7 @@ def calculate_monthly_lead_time(tasks_collection, start_date, end_date, creator=
                         {"$toDate": "$close_date"},
                         {"$toDate": "$gantt_bar_start_date"}
                     ]},
-                    86400000  # milissegundos em um dia
+                    86400000
                 ]
             },
             "month": {

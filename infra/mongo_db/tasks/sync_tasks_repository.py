@@ -40,7 +40,9 @@ def sync_tasks(json_tasks, tasks_collection, reopened_collection):
             "board_stage_name": novo_status,
             "is_closed": task.get("is_closed"),
             "status": novo_status,
-            "completion_date": task.get("close_date")
+            "completion_date": task.get("close_date"),
+            "custom_fields": task.get("custom_fields"),
+            "assignments": task.get("assignments")
         }
 
         if task_id in db_tasks_by_id:

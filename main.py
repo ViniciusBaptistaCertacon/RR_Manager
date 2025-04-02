@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 
 from data.tasks import sync_all_tasks
 from data.tasks.dashboard import (
-    get_task_counts, get_monthly_lead_time, get_project_distribution, get_average_deviations
+    get_task_counts, get_monthly_lead_time, get_project_distribution, get_average_deviations, get_tasks_by_professional
 )
 
 app = FastAPI(
@@ -103,5 +103,27 @@ def monthly_lead_time(
     try:
         lead_time = get_monthly_lead_time(start_date, end_date, creator)
         return lead_time
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/dashboard/professional-tasks", tags=["Dashboard"])
+def professional_tasks(
+        period_start: datetime,
+        period_end: datetime,
+        creator: Optional[str] = None
+):
+    """
+    Retorna, para o período informado, a quantidade de tarefas por profissional,
+    separando itens em aberto e fechados.
+
+    - **period_start**: Data mínima para o filtro (aplicada em 'created_at' para itens abertos
+      e em 'close_date' para itens fechados).
+    - **period_end**: Data máxima para o filtro.
+    - **creator**: (Opcional) Filtra tarefas que envolvam este profissional.
+    """
+    try:
+        result = get_tasks_by_professional(period_start, period_end, creator)
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
